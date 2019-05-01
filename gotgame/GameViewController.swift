@@ -112,7 +112,6 @@ class GameViewController: UIViewController {
 
         }
         else{
-            print("AAA")
             printMessages(message: ALERTMESSAGE)
             startOver()
         }
@@ -120,7 +119,7 @@ class GameViewController: UIViewController {
     }
 
     func checkAnswer() {
-        if timeCompetitor1 > timeCompetitor2 && pickedAnswer == true{
+        if ((timeCompetitor1 > timeCompetitor2 && pickedAnswer) || (!(timeCompetitor1 > timeCompetitor2) && !pickedAnswer)){
             score += 1
             userScore.text = String(score)
             printMessages(message: answers[0])
