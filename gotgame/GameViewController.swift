@@ -25,13 +25,18 @@ class GameViewController: UIViewController {
     var timeCompetitor2: Float!
     var score = 0
     let ALERTMESSAGE = "You\'ve already finished all the questions, do you want to start over the GAME?"
-    let ALERTTITLE = "Congrats"
-    let ALERTACTIONMESSAGE = "Restart"
+    let ALERTTITLE = "Result"
+    let ALERTACTIONMESSAGE = "Accept"
     var posData = [Question]()
     var times = [Float]()
     var season: String!
-    var conditions = [" LESS "," EQUAL "," GREATER "]
+    var answers = [" CORRECT ANSWER "," INCORRECT ANSWER "]
     var seasons = ["Season1","Season2","Season3","Season4","Season5","Season6","Season7"]
+    
+    enum Answer: String {
+        case CORRECT = "Correct Answer"
+        case INCORRECT = "Incorrect Answer"
+    }
     
     @IBOutlet weak var userScore: UITextView!
     @IBOutlet weak var userName: UITextView!
@@ -40,7 +45,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var competitor2: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let player = Auth.auth().currentUser?.email
+        userName.text = player
         //                SET FIREBASE REFERENCE
         ref = Database.database().reference()//2 to read
         dataBaseHandle = ref?.child("QuestionBank").observe(.value, with: { (snapshot) in
@@ -112,22 +118,14 @@ class GameViewController: UIViewController {
             indexCompetitor2 = Int.random(in: 0...6)
             print("BBB")
             print(indexCompetitor2)
-            let character2 = posData[indexCompetitor].name
+            let character2 = posData[indexCompetitor2].name
             competitor2.text = "Time on Screen of \(character2) during \(season)"
             timeCompetitor2 = Float(posData[indexCompetitor2].times[indexSeason])
 
         }
         else{//CREATE AN ALERT
-            let alert = UIAlertController(title: ALERTTITLE, message: ALERTMESSAGE, preferredStyle: .alert)
-
-            let restartAction = UIAlertAction(title: ALERTACTIONMESSAGE, style: .default) { (UIAlertAction) in
-                self.startOver()
-            }
-
-            alert.addAction(restartAction)
-
-            //PRESENT ALERT TO THE VIEWER
-            present(alert, animated: true,completion: nil)
+            printMessages(message: ALERTMESSAGE)
+            self.startOver()
         }
 
     }
@@ -138,7 +136,12 @@ class GameViewController: UIViewController {
         if timeCompetitor1 > timeCompetitor2 && pickedAnswer == true{
             score += 1
             userScore.text = String(score)
+            printMessages(message: answers[0])
+           
         }
+//            else{
+//            printMessages(message: answers[1])
+//        }
 
         counterQuestion += 1
         nextQuestion()
@@ -154,5 +157,19 @@ class GameViewController: UIViewController {
         nextQuestion()
         userScore.text = "0"
     }
+    
+    func printMessages(message: String){
+        let alert = UIAlertController(title: ALERTTITLE, message: message, preferredStyle: .alert)
+        
+        let restartAction = UIAlertAction(title: ALERTACTIONMESSAGE, style: .default) { (UIAlertAction) in
+            
+        }
+        
+        alert.addAction(restartAction)
+        
+        //PRESENT ALERT TO THE VIEWER
+        present(alert, animated: true,completion: nil)
+    }
+    
 
 }
