@@ -66,14 +66,6 @@ class GameViewController: UIViewController {
                 let newObj = Question(name:val["name"] as! String, times: self.times)
                 print(l,"\n##################\n")
                 self.posData.append(newObj)
-                print(val["name"] as! String,"\n")
-                print(val["season1"] as! Float,"\n")
-                print(val["season2"] as! Float,"\n")
-                print(val["season3"] as! Float,"\n")
-                print(val["season4"] as! Float,"\n")
-                print(val["season5"] as! Float,"\n")
-                print(val["season6"] as! Float,"\n")
-                print(val["season7"] as! Float,"\n")
             }
             self.nextQuestion()
         })// Do any additional setup after loading the view.
@@ -102,11 +94,8 @@ class GameViewController: UIViewController {
     func nextQuestion() {
         indexSeason = Int.random(in: 0...6)
         season = seasons[indexSeason]
-        print(counter)
-        if counterQuestion < 6 {
+        if counterQuestion < 5 {
             indexCompetitor = Int.random(in: 0...6)
-            print("AAA")
-            print(indexCompetitor)
             let character1 = posData[indexCompetitor].name
             competitor1.text = " Time on Screen of \(character1) was ..."
             timeCompetitor1 = Float(posData[indexCompetitor].times[indexSeason])
@@ -116,22 +105,20 @@ class GameViewController: UIViewController {
             condition.text = "GREATER THAN"
             
             indexCompetitor2 = Int.random(in: 0...6)
-            print("BBB")
-            print(indexCompetitor2)
+
             let character2 = posData[indexCompetitor2].name
             competitor2.text = "Time on Screen of \(character2) during \(season)"
             timeCompetitor2 = Float(posData[indexCompetitor2].times[indexSeason])
 
         }
-        else{//CREATE AN ALERT
+        else{
+            print("AAA")
             printMessages(message: ALERTMESSAGE)
-            self.startOver()
+            startOver()
         }
 
     }
-    
-//
-//
+
     func checkAnswer() {
         if timeCompetitor1 > timeCompetitor2 && pickedAnswer == true{
             score += 1
@@ -139,9 +126,9 @@ class GameViewController: UIViewController {
             printMessages(message: answers[0])
            
         }
-//            else{
-//            printMessages(message: answers[1])
-//        }
+            else{
+            printMessages(message: answers[1])
+        }
 
         counterQuestion += 1
         nextQuestion()
