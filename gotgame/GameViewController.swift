@@ -30,12 +30,15 @@ class GameViewController: UIViewController {
     var posData = [Question]()
     var times = [Float]()
     var season: String!
-    var answers = [" CORRECT ANSWER "," INCORRECT ANSWER "]
+//    var answers = [" CORRECT ANSWER "," INCORRECT ANSWER "]
     var seasons = ["Season1","Season2","Season3","Season4","Season5","Season6","Season7"]
     
-    enum Answer: String {
+    enum StringMessages: String {
         case CORRECT = "Correct Answer"
         case INCORRECT = "Incorrect Answer"
+        case COMPARE = "GREATER THAN"
+        
+        func message() ->String { return self.rawValue }
     }
     
     @IBOutlet weak var userScore: UITextView!
@@ -102,7 +105,7 @@ class GameViewController: UIViewController {
             
             indexCondition = Int.random(in: 0...2)
 //            let compare = conditions[indexCondition]
-            condition.text = "GREATER THAN"
+            condition.text = StringMessages.COMPARE.message()
             
             indexCompetitor2 = Int.random(in: 0...6)
 
@@ -114,7 +117,7 @@ class GameViewController: UIViewController {
         else{
             printMessages(message: ALERTMESSAGE)
             startOver()
-        }
+        } 
 
     }
 
@@ -122,12 +125,12 @@ class GameViewController: UIViewController {
         if ((timeCompetitor1 > timeCompetitor2 && pickedAnswer) || (!(timeCompetitor1 > timeCompetitor2) && !pickedAnswer)){
             score += 1
             userScore.text = String(score)
-            printMessages(message: answers[0])
+            printMessages(message: StringMessages.CORRECT.message())
            
         }
             else{
-            printMessages(message: answers[1])
-        }
+                printMessages(message: StringMessages.INCORRECT.message())
+            }
 
         counterQuestion += 1
         nextQuestion()
@@ -140,8 +143,8 @@ class GameViewController: UIViewController {
         indexSeason = 0
         indexCondition = 0
         indexCompetitor = 0
-        nextQuestion()
         userScore.text = "0"
+        nextQuestion()
     }
     
     func printMessages(message: String){
@@ -155,7 +158,9 @@ class GameViewController: UIViewController {
         
         //PRESENT ALERT TO THE VIEWER
         present(alert, animated: true,completion: nil)
+    
     }
     
+
 
 }
