@@ -30,7 +30,6 @@ class GameViewController: UIViewController {
     var posData = [Question]()
     var times = [Float]()
     var season: String!
-//    var answers = [" CORRECT ANSWER "," INCORRECT ANSWER "]
     var seasons = ["Season1","Season2","Season3","Season4","Season5","Season6","Season7"]
     
     enum StringMessages: String {
@@ -40,6 +39,7 @@ class GameViewController: UIViewController {
         
         func message() ->String { return self.rawValue }
     }
+
     
     @IBOutlet weak var userScore: UITextView!
     @IBOutlet weak var userName: UITextView!
@@ -110,7 +110,7 @@ class GameViewController: UIViewController {
             indexCompetitor2 = Int.random(in: 0...6)
 
             let character2 = posData[indexCompetitor2].name
-            competitor2.text = "Time on Screen of \(character2) during \(season)"
+            competitor2.text = "Time on Screen of \(character2) during \(String(describing: season))"
             timeCompetitor2 = Float(posData[indexCompetitor2].times[indexSeason])
 
         }
@@ -148,7 +148,7 @@ class GameViewController: UIViewController {
     }
     
     func printMessages(message: String){
-        let alert = UIAlertController(title: ALERTTITLE, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: ALERTTITLE, message: "\(message)  your score is = \(score)", preferredStyle: .alert)
         
         let restartAction = UIAlertAction(title: ALERTACTIONMESSAGE, style: .default) { (UIAlertAction) in
             
