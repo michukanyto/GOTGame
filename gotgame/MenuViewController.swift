@@ -18,8 +18,16 @@ class MenuViewController: UIViewController {
     }
 
     @IBAction func logOut(_ sender: UIButton) {
-        exit(0)
+//        exit(0)
+        do {
+            try Auth.auth().signOut()
+        }
+        catch {
+            print(error)
+            print("error: there was a problem logging out")
+            //exit(0)
+        }
     }
     
-//exit(0)
+
 }

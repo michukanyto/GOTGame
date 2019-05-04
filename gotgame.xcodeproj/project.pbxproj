@@ -92,13 +92,13 @@
 				F9AF726F2279D0DC00D0BACC /* AppDelegate.swift */,
 				F9AF72712279D0DC00D0BACC /* ViewController.swift */,
 				F9AF728A2279E7AE00D0BACC /* GameViewController.swift */,
+				F9AF728C227A09E500D0BACC /* MenuViewController.swift */,
 				F9AF72732279D0DC00D0BACC /* Main.storyboard */,
 				F9AF72792279D0DD00D0BACC /* Assets.xcassets */,
 				F9AF727B2279D0DD00D0BACC /* LaunchScreen.storyboard */,
 				F9AF727E2279D0DD00D0BACC /* Info.plist */,
 				F9AF72762279D0DC00D0BACC /* gotgame.xcdatamodeld */,
 				F9AF72842279D1C300D0BACC /* GoogleService-Info.plist */,
-				F9AF728C227A09E500D0BACC /* MenuViewController.swift */,
 			);
 			path = gotgame;
 			sourceTree = "<group>";
